@@ -4,10 +4,14 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useTheme } from "@/context/ThemeContext";
+import { useCart } from "@/context/CartContext";
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const { theme, toggleTheme } = useTheme();
+    const { totalItems, toggleCart } = useCart();
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -29,8 +33,8 @@ export default function Navbar() {
                 animate={{ y: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className={`fixed w-full z-40 top-0 transition-all duration-300 ${scrolled
-                    ? "bg-[#0f0c0a]/95 backdrop-blur-md border-b border-primary/20 shadow-lg"
-                    : "bg-transparent"
+                        ? "bg-[#0f0c0a]/95 dark:bg-[#0f0c0a]/95 light:bg-white/95 backdrop-blur-md border-b border-primary/20 shadow-lg"
+                        : "bg-transparent"
                     }`}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,7 +61,7 @@ export default function Navbar() {
                         </Link>
 
                         {/* Desktop Links */}
-                        <div className="hidden md:flex items-center space-x-12">
+                        <div className="hidden md:flex items-center space-x-10">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.name}
@@ -68,6 +72,86 @@ export default function Navbar() {
                                     <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
                                 </Link>
                             ))}
+
+                            {/* Theme Toggle */}
+                            <motion.button
+                                whileTap={{ scale: 0.9 }}
+                                onClick={toggleTheme}
+                                className="w-10 h-10 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary/50 transition-colors text-primary"
+                                aria-label="Toggle theme"
+                            >
+                                <AnimatePresence mode="wait">
+                                    {theme === "dark" ? (
+                                        <motion.svg
+                                            key="sun"
+                                            initial={{ rotate: -90, opacity: 0 }}
+                                            animate={{ rotate: 0, opacity: 1 }}
+                                            exit={{ rotate: 90, opacity: 0 }}
+                                            transition={{ duration: 0.2 }}
+                                            className="w-5 h-5"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                                            />
+                                        </motion.svg>
+                                    ) : (
+                                        <motion.svg
+                                            key="moon"
+                                            initial={{ rotate: 90, opacity: 0 }}
+                                            animate={{ rotate: 0, opacity: 1 }}
+                                            exit={{ rotate: -90, opacity: 0 }}
+                                            transition={{ duration: 0.2 }}
+                                            className="w-5 h-5"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                                            />
+                                        </motion.svg>
+                                    )}
+                                </AnimatePresence>
+                            </motion.button>
+
+                            {/* Cart Icon */}
+                            <motion.button
+                                whileTap={{ scale: 0.9 }}
+                                onClick={toggleCart}
+                                className="relative w-10 h-10 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary/50 transition-colors text-primary"
+                                aria-label="Open cart"
+                            >
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                                    />
+                                </svg>
+                                <AnimatePresence>
+                                    {totalItems > 0 && (
+                                        <motion.span
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            exit={{ scale: 0 }}
+                                            className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-bg-dark text-[10px] font-display font-bold rounded-full flex items-center justify-center"
+                                        >
+                                            {totalItems}
+                                        </motion.span>
+                                    )}
+                                </AnimatePresence>
+                            </motion.button>
+
                             <Link
                                 href="/#newsletter"
                                 className="px-8 py-3 bg-primary text-bg-dark font-display font-bold text-xs tracking-widest uppercase hover:bg-white transition-all transform hover:-translate-y-0.5 rounded-full shadow-lg"
@@ -76,35 +160,56 @@ export default function Navbar() {
                             </Link>
                         </div>
 
-                        {/* Mobile Menu Button */}
-                        <button
-                            className="md:hidden text-primary hover:opacity-70 focus:outline-none transition-opacity"
-                            onClick={() => setMobileOpen(!mobileOpen)}
-                            aria-label="Toggle menu"
-                        >
-                            <svg
-                                className="w-8 h-8"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
+                        {/* Mobile Right Side */}
+                        <div className="md:hidden flex items-center gap-3">
+                            {/* Mobile Theme Toggle */}
+                            <button
+                                onClick={toggleTheme}
+                                className="w-10 h-10 flex items-center justify-center rounded-full border border-primary/20 text-primary"
+                                aria-label="Toggle theme"
                             >
-                                {mobileOpen ? (
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
+                                {theme === "dark" ? (
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                                    </svg>
                                 ) : (
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                                    </svg>
                                 )}
-                            </svg>
-                        </button>
+                            </button>
+
+                            {/* Mobile Cart */}
+                            <button
+                                onClick={toggleCart}
+                                className="relative w-10 h-10 flex items-center justify-center rounded-full border border-primary/20 text-primary"
+                                aria-label="Open cart"
+                            >
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                                </svg>
+                                {totalItems > 0 && (
+                                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-bg-dark text-[10px] font-display font-bold rounded-full flex items-center justify-center">
+                                        {totalItems}
+                                    </span>
+                                )}
+                            </button>
+
+                            {/* Mobile Menu Button */}
+                            <button
+                                className="text-primary hover:opacity-70 focus:outline-none transition-opacity"
+                                onClick={() => setMobileOpen(!mobileOpen)}
+                                aria-label="Toggle menu"
+                            >
+                                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    {mobileOpen ? (
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    ) : (
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                                    )}
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </motion.nav>

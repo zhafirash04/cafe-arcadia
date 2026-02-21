@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import ClientProviders from "@/components/ClientProviders";
 
 export const metadata: Metadata = {
   title: "Café Arcadia - Brewed for Legends",
@@ -23,12 +22,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className="antialiased">
-        <div className="noise-overlay" />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   );

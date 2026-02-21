@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import ScrollAnimation from "@/components/ScrollAnimation";
 import { useState } from "react";
+import { useCart } from "@/context/CartContext";
 
 /* ── data ────────────────────────────────────────────── */
 const roastLevels = ["Light", "Medium", "Dark", "Dragon-Fire"];
@@ -117,6 +118,18 @@ const brewingMethods = [
 /* ── page ────────────────────────────────────────────── */
 export default function CodexPage() {
     const [activeLevel, setActiveLevel] = useState<string | null>(null);
+    const { addItem } = useCart();
+
+    const handleAdd = (name: string, price: string, image?: string, tag?: string) => {
+        const priceNum = parseInt(price.replace(/[^0-9]/g, ""));
+        addItem({
+            id: name.toLowerCase().replace(/\s+/g, "-"),
+            name,
+            price: priceNum,
+            image,
+            tag,
+        });
+    };
 
     const filteredRoasts = activeLevel
         ? legendaryRoasts.filter((r) => r.level === activeLevel)
@@ -213,8 +226,8 @@ export default function CodexPage() {
                             <button
                                 onClick={() => setActiveLevel(null)}
                                 className={`px-6 py-3 font-display font-bold text-xs uppercase tracking-widest rounded-full transition-all border ${activeLevel === null
-                                        ? "bg-primary text-bg-dark border-primary"
-                                        : "bg-transparent text-gray-400 border-gray-700 hover:border-primary hover:text-primary"
+                                    ? "bg-primary text-bg-dark border-primary"
+                                    : "bg-transparent text-gray-400 border-gray-700 hover:border-primary hover:text-primary"
                                     }`}
                             >
                                 All
@@ -226,8 +239,8 @@ export default function CodexPage() {
                                         setActiveLevel(activeLevel === level ? null : level)
                                     }
                                     className={`px-6 py-3 font-display font-bold text-xs uppercase tracking-widest rounded-full transition-all border ${activeLevel === level
-                                            ? "bg-primary text-bg-dark border-primary"
-                                            : "bg-transparent text-gray-400 border-gray-700 hover:border-primary hover:text-primary"
+                                        ? "bg-primary text-bg-dark border-primary"
+                                        : "bg-transparent text-gray-400 border-gray-700 hover:border-primary hover:text-primary"
                                         }`}
                                 >
                                     {level}
@@ -293,8 +306,8 @@ export default function CodexPage() {
                                                     <div
                                                         key={idx}
                                                         className={`w-4 h-1.5 rounded-full ${idx < roast.strength
-                                                                ? "bg-primary"
-                                                                : "bg-gray-700"
+                                                            ? "bg-primary"
+                                                            : "bg-gray-700"
                                                             }`}
                                                     />
                                                 ))}
@@ -305,8 +318,11 @@ export default function CodexPage() {
                                             <span className="text-[10px] text-gray-500 font-display uppercase tracking-widest">
                                                 {roast.badge}
                                             </span>
-                                            <button className="text-xs font-display font-bold text-primary uppercase tracking-wider hover:text-white transition-colors">
-                                                Seal of Potency →
+                                            <button
+                                                onClick={() => handleAdd(roast.name, roast.price, roast.img, roast.level)}
+                                                className="text-xs font-display font-bold text-primary uppercase tracking-wider hover:text-white transition-colors"
+                                            >
+                                                Add to Cart →
                                             </button>
                                         </div>
                                     </div>
@@ -450,8 +466,11 @@ export default function CodexPage() {
                                     <p className="font-display font-bold text-primary text-lg mb-4">
                                         {drink.price}
                                     </p>
-                                    <button className="text-xs font-display font-bold text-gray-500 uppercase tracking-wider hover:text-primary transition-colors border border-gray-700 hover:border-primary px-4 py-2 rounded-full w-full">
-                                        Seal of Potency
+                                    <button
+                                        onClick={() => handleAdd(drink.name, drink.price, undefined, "Seasonal")}
+                                        className="text-xs font-display font-bold text-gray-500 uppercase tracking-wider hover:text-primary transition-colors border border-gray-700 hover:border-primary px-4 py-2 rounded-full w-full"
+                                    >
+                                        Add to Cart
                                     </button>
                                 </div>
                             </ScrollAnimation>

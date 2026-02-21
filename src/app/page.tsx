@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import ScrollAnimation from "@/components/ScrollAnimation";
+import { useCart } from "@/context/CartContext";
+import { useRef } from "react";
 
 /* ── data ────────────────────────────────────────────── */
 const roasts = [
@@ -88,23 +90,43 @@ const testimonials = [
 
 /* ── page ────────────────────────────────────────────── */
 export default function HomePage() {
+  const { addItem } = useCart();
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+  const handleAddToCart = (roast: typeof roasts[0]) => {
+    const priceNum = parseInt(roast.price.split(" ")[0]);
+    addItem({
+      id: roast.name.toLowerCase().replace(/\s+/g, "-"),
+      name: roast.name,
+      price: priceNum,
+      image: roast.img,
+      tag: roast.tag,
+    });
+  };
+
   return (
     <>
       {/* ═══════════ HERO ═══════════ */}
-      <header className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
+      <header ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <motion.div style={{ y: heroY }} className="absolute inset-0 z-0">
           <Image
             src="/images/hero-bg.png"
             alt="Royal coffee hall"
             fill
-            className="object-cover"
+            className="object-cover scale-110"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-bg-dark" />
           <div className="absolute inset-0 bg-black/30 mix-blend-multiply" />
-        </div>
+        </motion.div>
 
-        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto mt-20">
+        <motion.div style={{ opacity: heroOpacity }} className="relative z-10 text-center px-4 max-w-5xl mx-auto mt-20">
           <motion.div
             initial={{ opacity: 0, scaleY: 0 }}
             animate={{ opacity: 0.8, scaleY: 1 }}
@@ -165,7 +187,7 @@ export default function HomePage() {
               Our Origins
             </Link>
           </motion.div>
-        </div>
+        </motion.div>
 
         <motion.div
           animate={{ y: [0, 8, 0] }}
@@ -239,7 +261,10 @@ export default function HomePage() {
                       className="object-cover transform group-hover:scale-105 transition-transform duration-1000 ease-out grayscale-[20%] group-hover:grayscale-0"
                     />
                     <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                      <button className="w-full py-3 bg-primary text-bg-dark font-display font-bold text-xs uppercase tracking-widest hover:bg-white transition-colors">
+                      <button
+                        onClick={() => handleAddToCart(roast)}
+                        className="w-full py-3 bg-primary text-bg-dark font-display font-bold text-xs uppercase tracking-widest hover:bg-white transition-colors"
+                      >
                         Add to Cart - {roast.price.split(" ")[0]} GP
                       </button>
                     </div>
@@ -253,8 +278,8 @@ export default function HomePage() {
                         <span
                           key={idx}
                           className={`w-2 h-2 rounded-full ${idx < roast.intensity
-                              ? "bg-primary"
-                              : "bg-gray-700"
+                            ? "bg-primary"
+                            : "bg-gray-700"
                             }`}
                         />
                       ))}
