@@ -7,6 +7,7 @@ import ScrollAnimation from "@/components/ScrollAnimation";
 import { FlaskConical, Leaf, Snowflake, Flame, Mountain, Castle, Scroll as ScrollIcon, Shield } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useRef } from "react";
+import AlkemisBuilder from "@/components/alkemis/AlkemisBuilder";
 
 /* ── data ────────────────────────────────────────────── */
 const roasts = [
@@ -467,6 +468,60 @@ export default function HomePage() {
                 <ScrollIcon className="w-4 h-4" /> View Full Codex
               </Link>
             </div>
+          </ScrollAnimation>
+        </div>
+      </section>
+
+      {/* ═══════════ MEJA ALKEMIS ═══════════ */}
+      <section id="alkemis" className="py-32 bg-bg-dark relative overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-10 pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C6A87C' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C%2Fg%3E%3C%2Fsvg%3E")`,
+          }}
+        />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] opacity-30 pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-secondary/10 rounded-full blur-[100px] opacity-20 pointer-events-none" />
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <ScrollAnimation>
+            <div className="text-center mb-14">
+              <div className="inline-flex items-center justify-center mb-6 text-primary">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 48 48"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M24 4 C30 4 36 10 36 18 C36 26 30 32 24 34 C18 32 12 26 12 18 C12 10 18 4 24 4Z" />
+                  <path d="M20 6 L28 6 L24 4 Z" fill="currentColor" opacity="0.5" />
+                  <path d="M24 34 L24 42" strokeLinecap="round" />
+                  <path d="M18 42 L30 42" strokeLinecap="round" />
+                  <path d="M18 20 C20 18 22 22 24 20 C26 18 28 22 30 20" strokeLinecap="round" />
+                </svg>
+              </div>
+              <span className="text-primary font-display font-bold tracking-[0.3em] text-xs uppercase mb-4 block">
+                Meja Alkemis
+              </span>
+              <h2 className="font-display text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">
+                The Alchemist&apos;s Table
+              </h2>
+              <p className="font-serif italic text-gray-400 text-lg max-w-xl mx-auto">
+                Forge Your Own Elixir — select your base, bind your essences, and choose a vessel worthy of your legend.
+              </p>
+              <div className="flex items-center justify-center gap-4 mt-6 opacity-60">
+                <div className="h-px w-16 bg-gradient-to-r from-transparent via-primary to-transparent" />
+                <span className="font-serif italic text-primary text-sm">Begin the Ritual</span>
+                <div className="h-px w-16 bg-gradient-to-r from-transparent via-primary to-transparent" />
+              </div>
+            </div>
+          </ScrollAnimation>
+
+          <ScrollAnimation delay={0.2}>
+            <AlkemisBuilder isHomepage={true} />
           </ScrollAnimation>
         </div>
       </section>
