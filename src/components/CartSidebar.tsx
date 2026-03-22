@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { ShoppingCart, Castle } from "lucide-react";
 
@@ -172,9 +173,13 @@ export default function CartSidebar() {
                                     </span>
                                 </div>
 
-                                <button className="w-full py-4 bg-primary text-bg-dark font-display font-bold uppercase tracking-widest text-sm hover:bg-white transition-colors rounded-full glow-primary">
+                                <Link
+                                    href="/checkout"
+                                    onClick={closeCart}
+                                    className="block w-full py-4 text-center bg-primary text-bg-dark font-display font-bold uppercase tracking-widest text-sm hover:bg-white transition-colors rounded-full glow-primary"
+                                >
                                     Proceed to Checkout
-                                </button>
+                                </Link>
 
                                 <button
                                     onClick={clearCart}
