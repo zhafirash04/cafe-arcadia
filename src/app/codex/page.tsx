@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import ScrollAnimation from "@/components/ScrollAnimation";
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
+import { Droplet, Coffee, Snowflake, BookOpen, Swords, Leaf, Sparkles, Library } from "lucide-react";
 
 /* ── data ────────────────────────────────────────────── */
 const roastLevels = ["Light", "Medium", "Dark", "Dragon-Fire"];
@@ -99,17 +100,17 @@ const seasonalDrinks = [
 
 const brewingMethods = [
     {
-        icon: "💧",
+        icon: <Droplet className="w-8 h-8" strokeWidth={1.5} />,
         title: "The Pour Over",
         desc: "A time meditation ritual. Slow, focused dripping of water over freshly ground beans through paper or cloth filter. Classic and clean.",
     },
     {
-        icon: "🫖",
+        icon: <Coffee className="w-8 h-8" strokeWidth={1.5} />,
         title: "French Press",
         desc: "Full immersion heavenly experience. It gives the most body revealing the authentic richness and full body of a blend.",
     },
     {
-        icon: "❄️",
+        icon: <Snowflake className="w-8 h-8" strokeWidth={1.5} />,
         title: "Cold Extraction",
         desc: "Defies the fire ingredient. Time replaces heat. Steeped at strategic cool temperatures for at least 24 hours to achieve near zero acidity.",
     },
@@ -154,9 +155,9 @@ export default function CodexPage() {
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.6 }}
-                        className="mb-6 flex justify-center text-4xl text-primary"
+                        className="mb-6 flex justify-center text-primary"
                     >
-                        📖
+                        <BookOpen className="w-12 h-12" strokeWidth={1.5} />
                     </motion.div>
                     <motion.h1
                         initial={{ opacity: 0, y: 30 }}
@@ -212,7 +213,7 @@ export default function CodexPage() {
                             </span>
                             <div className="flex items-center justify-center gap-3 my-4">
                                 <div className="h-px w-8 bg-primary/30" />
-                                <span className="text-primary text-lg">⚔️</span>
+                                <Swords className="text-primary w-6 h-6" strokeWidth={1.5} />
                                 <div className="h-px w-8 bg-primary/30" />
                             </div>
                             <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
@@ -342,7 +343,7 @@ export default function CodexPage() {
                         </h2>
                         <div className="flex items-center justify-center gap-3 mb-16">
                             <div className="h-px w-16 bg-gradient-to-r from-transparent to-primary/50" />
-                            <span className="text-primary text-sm">🌿</span>
+                            <Leaf className="text-primary w-5 h-5" strokeWidth={1.5} />
                             <div className="h-px w-16 bg-gradient-to-l from-transparent to-primary/50" />
                         </div>
                     </ScrollAnimation>
@@ -395,7 +396,7 @@ export default function CodexPage() {
                         </h2>
                         <div className="flex items-center justify-center gap-3 mb-16">
                             <div className="h-px w-16 bg-gradient-to-r from-transparent to-primary/50" />
-                            <span className="text-primary text-sm">❄️</span>
+                            <Snowflake className="text-primary w-5 h-5" strokeWidth={1.5} />
                             <div className="h-px w-16 bg-gradient-to-l from-transparent to-primary/50" />
                         </div>
                     </ScrollAnimation>
@@ -448,7 +449,7 @@ export default function CodexPage() {
                         </h2>
                         <div className="flex items-center justify-center gap-3 mb-16">
                             <div className="h-px w-16 bg-gradient-to-r from-transparent to-primary/50" />
-                            <span className="text-primary text-sm">✨</span>
+                            <Sparkles className="text-primary w-5 h-5" strokeWidth={1.5} />
                             <div className="h-px w-16 bg-gradient-to-l from-transparent to-primary/50" />
                         </div>
                     </ScrollAnimation>
@@ -517,8 +518,8 @@ export default function CodexPage() {
             <section className="py-24 bg-bg-dark border-t border-gray-800/50">
                 <div className="max-w-3xl mx-auto px-4 text-center">
                     <ScrollAnimation>
-                        <div className="inline-flex items-center justify-center mb-6 text-3xl text-primary">
-                            🏛️
+                        <div className="inline-flex items-center justify-center mb-6 text-primary">
+                            <Library className="w-10 h-10" strokeWidth={1.5} />
                         </div>
                         <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-8 uppercase tracking-widest">
                             The Keeper&apos;s Note

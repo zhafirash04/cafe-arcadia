@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
+import { ShoppingCart, Castle } from "lucide-react";
 
 export default function CartSidebar() {
     const {
@@ -40,7 +41,7 @@ export default function CartSidebar() {
                         {/* Header */}
                         <div className="flex items-center justify-between p-6 border-b border-primary/20">
                             <div className="flex items-center gap-3">
-                                <span className="text-2xl">🛒</span>
+                                <ShoppingCart className="w-6 h-6 text-primary" />
                                 <h2 className="font-display font-bold text-xl text-white uppercase tracking-widest">
                                     Your Cart
                                 </h2>
@@ -68,7 +69,7 @@ export default function CartSidebar() {
                                     animate={{ opacity: 1, y: 0 }}
                                     className="flex flex-col items-center justify-center h-full text-center"
                                 >
-                                    <span className="text-6xl mb-4 opacity-30">🏰</span>
+                                    <Castle className="w-16 h-16 mb-4 opacity-30 text-primary mx-auto" strokeWidth={1.5} />
                                     <p className="font-display text-lg text-gray-500 uppercase tracking-widest mb-2">
                                         Your cart is empty
                                     </p>

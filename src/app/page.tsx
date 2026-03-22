@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ScrollAnimation from "@/components/ScrollAnimation";
+import { FlaskConical, Leaf, Snowflake, Flame, Mountain, Castle, Scroll as ScrollIcon, Shield } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useRef } from "react";
 
@@ -41,7 +42,7 @@ const roasts = [
 
 const menuCategories = [
   {
-    icon: "☕",
+    icon: <FlaskConical className="w-6 h-6" strokeWidth={1.5} />,
     title: "Potions of Awakening",
     items: [
       { name: "Knight's Espresso", price: "5 GP", desc: "Double shot of pure, concentrated energy. Served black as the void." },
@@ -50,7 +51,7 @@ const menuCategories = [
     ],
   },
   {
-    icon: "🌿",
+    icon: <Leaf className="w-6 h-6" strokeWidth={1.5} />,
     title: "Elixirs of Vitality",
     items: [
       { name: "Elven Morning Mist", price: "6 GP", desc: "Earl Grey tea latte infused with lavender syrup and frothed milk." },
@@ -58,7 +59,7 @@ const menuCategories = [
     ],
   },
   {
-    icon: "❄️",
+    icon: <Snowflake className="w-6 h-6" strokeWidth={1.5} />,
     title: "Ancient Cold Brews",
     items: [
       { name: "Dwarven Stout Brew", price: "7 GP", desc: "Nitro cold brew. Thick, creamy, and dark as the mines under the mountain." },
@@ -352,12 +353,12 @@ export default function HomePage() {
               <div className="space-y-8">
                 {[
                   {
-                    icon: "🔥",
+                    icon: <Flame className="w-6 h-6" strokeWidth={1.5} />,
                     title: "Dragon-Fire Roasting",
                     desc: "Roasted in small batches over open flame to preserve the magical essence and smoky undertones.",
                   },
                   {
-                    icon: "⛰️",
+                    icon: <Mountain className="w-6 h-6" strokeWidth={1.5} />,
                     title: "High Peak Sourcing",
                     desc: "Beans sourced from the highest altitudes where the air is thin and the soil is rich with ancient minerals.",
                   },
@@ -399,8 +400,8 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <ScrollAnimation>
             <div className="text-center mb-16">
-              <div className="inline-flex items-center justify-center mb-6 text-primary text-5xl">
-                🏰
+              <div className="inline-flex items-center justify-center mb-6 text-primary">
+                <Castle className="w-12 h-12" strokeWidth={1} />
               </div>
               <h2 className="font-display text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">
                 The Guild&apos;s Selection
@@ -463,7 +464,7 @@ export default function HomePage() {
                 href="/codex"
                 className="inline-flex items-center gap-3 px-8 py-4 border border-primary text-primary font-display font-bold uppercase tracking-widest text-xs hover:bg-primary hover:text-bg-dark transition-all duration-300 rounded-full"
               >
-                📜 View Full Codex
+                <ScrollIcon className="w-4 h-4" /> View Full Codex
               </Link>
             </div>
           </ScrollAnimation>
@@ -542,8 +543,8 @@ export default function HomePage() {
         </div>
         <div className="max-w-4xl mx-auto px-4 relative z-10 text-center">
           <ScrollAnimation>
-            <div className="inline-flex items-center justify-center p-3 rounded-full border border-primary/30 mb-8 bg-bg-dark/50 backdrop-blur-sm text-3xl">
-              🛡️
+            <div className="inline-flex items-center justify-center p-3 rounded-full border border-primary/30 mb-8 bg-bg-dark/50 backdrop-blur-sm text-primary">
+              <Shield className="w-8 h-8" strokeWidth={1.5} />
             </div>
             <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-6">
               Join the Inner Circle
