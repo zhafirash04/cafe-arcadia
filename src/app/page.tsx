@@ -598,6 +598,71 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ═══════════ CARTOGRAPHY ENTRY POINT ═══════════ */}
+      <section className="py-24 bg-bg-dark border-t border-gray-800 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/5 rounded-full blur-[140px] opacity-30" />
+        </div>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <ScrollAnimation>
+            <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+              {/* Map preview */}
+              <div className="flex-shrink-0 w-full md:w-72 lg:w-80 overflow-hidden rounded-lg border border-primary/20 shadow-xl"
+                style={{
+                  maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%)",
+                  WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%)",
+                }}
+              >
+                <svg
+                  viewBox="400 180 400 300"
+                  className="w-full"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <rect width="1200" height="700" fill="#0a0f1a" />
+                  <rect width="1200" height="700" fill="#0d1a2a" opacity="0.6" />
+                  {/* Ember Isles preview */}
+                  <path d="M 882,370 C 910,352 952,355 980,375 C 1003,393 1010,422 993,445 C 976,468 945,472 918,458 C 892,444 874,415 878,390 Z"
+                    fill="#1a4a2e" stroke="#1a0f07" strokeWidth="1.5" opacity="0.9" />
+                  {/* Jade Mountains preview */}
+                  <path d="M 660,218 C 680,200 710,196 738,210 C 762,222 778,248 774,275 C 770,302 748,318 720,316 C 694,314 670,298 658,274 C 646,250 642,232 660,218 Z"
+                    fill="#1e5e4a" stroke="#1a0f07" strokeWidth="1.5" opacity="0.9" />
+                  {/* Kefa Highlands preview */}
+                  <path d="M 582,292 C 602,273 635,270 660,285 C 682,298 694,322 688,350 C 682,378 658,392 630,390 C 604,388 580,372 568,348 C 556,324 562,308 582,292 Z"
+                    fill="#8b2500" stroke="#1a0f07" strokeWidth="1.5" opacity="0.9" />
+                  {/* Crimson Steppes preview */}
+                  <path d="M 622,368 C 646,350 680,350 706,368 C 728,384 735,412 724,438 C 713,464 685,474 657,470 C 630,466 606,450 596,424 C 586,398 600,384 622,368 Z"
+                    fill="#7a1a1a" stroke="#1a0f07" strokeWidth="1.5" opacity="0.9" />
+                  {/* Trade route hint */}
+                  <line x1="622" y1="320" x2="700" y2="260" stroke="#c4a035" strokeDasharray="4,8" strokeWidth="1" opacity="0.3" />
+                  <line x1="700" y1="260" x2="950" y2="400" stroke="#c4a035" strokeDasharray="4,8" strokeWidth="1" opacity="0.3" />
+                </svg>
+              </div>
+
+              {/* Text + CTA */}
+              <div className="text-center md:text-left">
+                <span className="text-primary font-display font-bold tracking-[0.3em] text-xs uppercase mb-3 block">
+                  The Cartographer&apos;s Guild
+                </span>
+                <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
+                  The Known Realms
+                </h2>
+                <p className="font-serif italic text-gray-400 text-base md:text-lg mb-8 max-w-lg leading-relaxed">
+                  Our brews do not come from warehouses. They come from
+                  places with names worth knowing.
+                </p>
+                <Link
+                  href="/cartography"
+                  className="inline-block px-8 py-4 bg-primary text-bg-dark font-display font-bold text-xs uppercase tracking-widest rounded-full hover:bg-white hover:text-accent-brown transition-all transform hover:-translate-y-0.5 shadow-lg"
+                >
+                  Consult the Cartographer →
+                </Link>
+              </div>
+            </div>
+          </ScrollAnimation>
+        </div>
+      </section>
+
       {/* ═══════════ TESTIMONIALS ═══════════ */}
       <section className="py-24 bg-bg-dark border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
