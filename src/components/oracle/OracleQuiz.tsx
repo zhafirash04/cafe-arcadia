@@ -523,6 +523,7 @@ function RuneStones({
             <motion.svg
               viewBox="0 0 28 28"
               className="w-7 h-7"
+              initial={{ filter: "drop-shadow(0 0 0px rgba(198,168,124,0))" }}
               animate={
                 isCurrent
                   ? {
@@ -532,10 +533,10 @@ function RuneStones({
                         "drop-shadow(0 0 4px rgba(198,168,124,0.8))",
                       ],
                     }
-                  : {}
+                  : { filter: "drop-shadow(0 0 0px rgba(198,168,124,0))" }
               }
               transition={
-                isCurrent ? { duration: 1.2, repeat: Infinity } : {}
+                isCurrent ? { duration: 1.2, repeat: Infinity } : { duration: 0.3 }
               }
             >
               {/* Diamond */}
@@ -569,14 +570,14 @@ function RuneStones({
               )}
               {/* Current rune pulsing inner dot */}
               {isCurrent && (
-                <motion.circle
-                  cx="14"
-                  cy="14"
-                  r="3"
-                  fill="#C6A87C"
-                  animate={{ r: [3, 4.5, 3], opacity: [0.8, 1, 0.8] }}
+                <motion.g
+                  initial={{ opacity: 0.8, scale: 1 }}
+                  animate={{ opacity: [0.8, 1, 0.8], scale: [1, 1.5, 1] }}
                   transition={{ duration: 1.2, repeat: Infinity }}
-                />
+                  style={{ transformOrigin: "14px 14px" }}
+                >
+                  <circle cx="14" cy="14" r="3" fill="#C6A87C" />
+                </motion.g>
               )}
               {/* Upcoming: just a tiny center dot */}
               {isUpcoming && (
