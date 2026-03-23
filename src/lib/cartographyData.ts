@@ -38,7 +38,7 @@ export const regions: Region[] = [
     lore: `Long before maps were drawn, the monks of Kefa discovered that the cherries growing wild on their misty slopes carried a fire within them. They called it 'the gift of the mountain gods' — a warmth that sustained them through the coldest highland nights. Arcadia's Dragon's Breath is the direct descendant of that ancient discovery. Nothing has been added. Nothing needed to be.`,
     color: "#8b2500",
     hoverColor: "#c43500",
-    path: "M590,270 L600,255 L625,250 L650,260 L665,280 L660,310 L650,340 L635,360 L615,365 L595,355 L580,335 L578,310 Z",
+    path: "M582,268 C588,250 604,240 626,240 C646,240 660,252 668,270 C676,288 676,310 668,330 C660,348 646,362 626,368 C606,374 588,366 578,348 C568,330 568,308 576,290 C578,282 580,278 582,268 Z",
   },
   {
     id: "cloud_kingdoms",
@@ -54,7 +54,7 @@ export const regions: Region[] = [
     lore: `The Cloud Kingdoms are governed by an ancient pact between the sun and the rain — neither dominates, both serve. This balance is not coincidence; it is the character of the land itself. The beans grown here inherit that equilibrium. Golden Knight does not shout. It does not need to. It simply endures — cup after cup, season after season.`,
     color: "#7a6200",
     hoverColor: "#b08e00",
-    path: "M195,260 L215,248 L240,250 L255,265 L260,285 L255,310 L245,330 L225,340 L205,335 L190,318 L185,295 L188,275 Z",
+    path: "M186,264 C194,246 212,238 234,240 C256,242 272,256 278,276 C284,296 278,320 264,336 C250,352 228,358 208,350 C188,342 178,322 178,302 C178,284 180,278 186,264 Z",
   },
   {
     id: "ember_isles",
@@ -70,7 +70,7 @@ export const regions: Region[] = [
     lore: `The Ember Isles were formed by fire and have never forgotten it. The soil here is the memory of eruptions — dense, mineral, unconventional. Beans grown in volcanic earth carry a depth that defies easy description. Mystic's Essence was named not for its maker, but for the island itself. Some flavors cannot be engineered. They must simply be discovered.`,
     color: "#1a4a2e",
     hoverColor: "#276640",
-    path: "M910,370 L940,358 L970,360 L995,375 L1005,398 L1000,425 L985,445 L960,450 L935,440 L915,420 L905,398 Z",
+    path: "M902,366 C918,346 942,338 968,346 C994,354 1012,376 1014,402 C1016,428 1000,452 974,462 C948,472 920,462 906,438 C892,414 890,388 902,366 Z",
   },
   {
     id: "verdant_plateau",
@@ -86,7 +86,7 @@ export const regions: Region[] = [
     lore: `No realm produces more than the Verdant Plateau, and yet it has never once been arrogant about it. There is a generosity to this land — a willingness to give that manifests in every mild, approachable cup it yields. The elves chose this origin for their morning ritual because it asks nothing difficult of you before the day has properly begun.`,
     color: "#2d5a1b",
     hoverColor: "#3d7a25",
-    path: "M235,405 L270,390 L315,392 L345,408 L355,435 L350,465 L335,488 L305,498 L270,495 L245,480 L228,458 L225,432 Z",
+    path: "M226,403 C240,382 266,372 298,376 C330,380 356,400 364,428 C372,456 360,486 336,500 C312,514 280,514 254,500 C228,486 214,460 214,436 C214,414 216,420 226,403 Z",
   },
   {
     id: "silver_coast",
@@ -102,7 +102,7 @@ export const regions: Region[] = [
     lore: `The Silver Coast sits where two ancient weather systems collide — the warm breath of the ocean and the cold descent of the mountain winds. That conflict produces something extraordinary: a bean with more personality per gram than almost any other in the known realms. Void Essence was built around it. The darkness in the cup is not emptiness — it is complexity, compressed.`,
     color: "#3a3a6e",
     hoverColor: "#4e4e9a",
-    path: "M138,255 L158,244 L178,248 L188,262 L190,280 L185,298 L172,308 L155,310 L140,300 L130,282 L130,265 Z",
+    path: "M130,255 C138,239 156,232 176,236 C196,240 208,258 208,278 C208,298 194,316 176,322 C158,328 138,318 130,302 C122,286 124,268 130,255 Z",
   },
   {
     id: "jade_mountains",
@@ -118,7 +118,7 @@ export const regions: Region[] = [
     lore: `Coffee itself was born somewhere in these mountains. The oldest varieties still grow here, largely unchanged for a thousand years, tended by families who have never written down their methods because no writing could contain them. Elf's Morning is Arcadia's most delicate expression — and the one we are most careful not to disturb. Some things are best left close to what they always were.`,
     color: "#1e5e4a",
     hoverColor: "#2a8066",
-    path: "M670,220 L695,210 L722,215 L740,232 L745,258 L738,280 L720,295 L698,298 L678,288 L664,268 L662,245 Z",
+    path: "M664,218 C678,202 700,196 724,202 C748,208 766,228 768,254 C770,280 754,304 728,314 C702,324 676,312 662,294 C648,276 648,250 664,218 Z",
   },
   {
     id: "crimson_steppes",
@@ -134,6 +134,6 @@ export const regions: Region[] = [
     lore: `The red soil of the Crimson Steppes is unlike anything else in the realm — iron-rich, ancient, almost aggressively fertile. Beans grown here are not subtle. They announce themselves. Cloud Walker earns its name not from lightness, but from the way it seems to lift you — a brightness so pronounced it feels like elevation. The steppes demand attention. This cup delivers it.`,
     color: "#7a1a1a",
     hoverColor: "#a82424",
-    path: "M630,355 L655,342 L680,345 L698,360 L702,385 L695,410 L678,425 L655,428 L634,418 L620,400 L618,375 Z",
+    path: "M622,352 C634,332 658,324 684,332 C710,340 726,364 724,390 C722,416 704,436 678,444 C652,452 626,438 616,414 C606,390 610,368 622,352 Z",
   },
 ];

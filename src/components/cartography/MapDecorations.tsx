@@ -86,11 +86,11 @@ export default function MapDecorations() {
         </g>
       ))}
 
-      {/* ── Title Cartouche ── */}
+      {/* ── Title Cartouche (bottom-left, away from navbar) ── */}
       <g>
         <rect
           x="38"
-          y="38"
+          y="610"
           width="210"
           height="70"
           rx="6"
@@ -101,7 +101,7 @@ export default function MapDecorations() {
         />
         <rect
           x="42"
-          y="42"
+          y="614"
           width="202"
           height="62"
           rx="4"
@@ -112,7 +112,7 @@ export default function MapDecorations() {
         />
         <text
           x="143"
-          y="65"
+          y="637"
           textAnchor="middle"
           fontFamily="'Cinzel', serif"
           fontSize="13"
@@ -124,7 +124,7 @@ export default function MapDecorations() {
         </text>
         <text
           x="143"
-          y="84"
+          y="656"
           textAnchor="middle"
           fontFamily="'Playfair Display', serif"
           fontSize="10"
