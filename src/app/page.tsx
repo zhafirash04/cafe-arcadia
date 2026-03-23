@@ -472,8 +472,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══════════ MEJA ALKEMIS ═══════════ */}
-      <section id="alkemis" className="py-32 bg-bg-dark relative overflow-hidden">
+      {/* ═══════════ THE ALCHEMIST'S TABLE ═══════════ */}
+      <section id="alchemist" className="py-32 bg-bg-dark relative overflow-hidden">
         <div
           className="absolute inset-0 opacity-10 pointer-events-none"
           style={{
@@ -504,7 +504,7 @@ export default function HomePage() {
                 </svg>
               </div>
               <span className="text-primary font-display font-bold tracking-[0.3em] text-xs uppercase mb-4 block">
-                Meja Alkemis
+                The Alchemist&apos;s Table
               </span>
               <h2 className="font-display text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">
                 The Alchemist&apos;s Table

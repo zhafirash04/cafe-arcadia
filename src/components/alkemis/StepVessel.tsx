@@ -124,7 +124,7 @@ export default function StepVessel({
           Choose Your Vessel
         </h3>
         <p className="font-serif italic text-[#5a3e2b] text-sm mt-1">
-          Pilih Wadah
+          A vessel worthy of your creation
         </p>
       </div>
 
