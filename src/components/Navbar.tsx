@@ -26,6 +26,7 @@ export default function Navbar() {
         { name: "Guild Menu", href: "/#menu" },
         { name: "The Alchemist", href: "/alchemist" },
         { name: "The Oracle", href: "/oracle" },
+        { name: "The Realms", href: "/cartography" },
     ];
 
     return (
