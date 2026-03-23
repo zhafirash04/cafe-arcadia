@@ -13,5 +13,9 @@ const CartographyMap = dynamic(
 );
 
 export default function CartographyPage() {
-  return <CartographyMap />;
+  return (
+    <div className="pt-24">
+      <CartographyMap />
+    </div>
+  );
 }
