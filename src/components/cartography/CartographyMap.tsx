@@ -49,6 +49,13 @@ export default function CartographyMap() {
     };
   }, [updateSvgRect]);
 
+  const resetView = useCallback(() => {
+    setSelectedRegion(null);
+    setScale(1);
+    setTranslateX(0);
+    setTranslateY(0);
+  }, []);
+
   const handleRegionClick = useCallback(
     (region: Region) => {
       if (selectedRegion?.id === region.id) {
@@ -76,15 +83,8 @@ export default function CartographyMap() {
       setTranslateX(tx);
       setTranslateY(ty);
     },
-    [selectedRegion]
+    [selectedRegion, resetView]
   );
-
-  const resetView = useCallback(() => {
-    setSelectedRegion(null);
-    setScale(1);
-    setTranslateX(0);
-    setTranslateY(0);
-  }, []);
 
   // Escape key to close
   useEffect(() => {
