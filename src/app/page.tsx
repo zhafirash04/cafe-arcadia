@@ -526,6 +526,78 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ═══════════ ORACLE ═══════════ */}
+      <section className="py-24 bg-surface-dark border-t border-gray-800 relative overflow-hidden">
+        {/* Background glow */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[140px] opacity-40" />
+        </div>
+
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <ScrollAnimation>
+            <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+              {/* Oracle mini silhouette */}
+              <div className="flex-shrink-0 w-40 h-52 opacity-80">
+                <svg
+                  viewBox="0 0 200 420"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-full h-full"
+                >
+                  <defs>
+                    <radialGradient id="oracleMiniGlow" cx="50%" cy="80%" r="50%">
+                      <stop offset="0%" stopColor="#C6A87C" stopOpacity="0.4" />
+                      <stop offset="100%" stopColor="#C6A87C" stopOpacity="0" />
+                    </radialGradient>
+                  </defs>
+                  <ellipse cx="100" cy="408" rx="65" ry="16" fill="url(#oracleMiniGlow)" />
+                  <path d="M60 190 C48 250 28 320 18 415 L182 415 C172 320 152 250 140 190 Z" fill="#C6A87C" fillOpacity="0.12" stroke="#C6A87C" strokeOpacity="0.18" strokeWidth="1" />
+                  <path d="M62 108 C60 142 58 168 60 190 L140 190 C142 168 140 142 138 108 Z" fill="#C6A87C" fillOpacity="0.18" />
+                  <path d="M63 118 C50 140 34 165 26 200" stroke="#C6A87C" strokeOpacity="0.3" strokeWidth="22" strokeLinecap="round" fill="none" />
+                  <path d="M137 118 C150 140 166 165 174 200" stroke="#C6A87C" strokeOpacity="0.3" strokeWidth="22" strokeLinecap="round" fill="none" />
+                  <path d="M56 108 C52 72 62 46 100 36 C138 46 148 72 144 108 Z" fill="#C6A87C" fillOpacity="0.22" />
+                  <ellipse cx="100" cy="80" rx="24" ry="30" fill="#120F0D" fillOpacity="0.88" />
+                  <circle cx="89" cy="74" r="5" fill="#D4AF37" fillOpacity="0.5" />
+                  <circle cx="89" cy="74" r="2.5" fill="#D4AF37" />
+                  <circle cx="111" cy="74" r="5" fill="#D4AF37" fillOpacity="0.5" />
+                  <circle cx="111" cy="74" r="2.5" fill="#D4AF37" />
+                  <line x1="173" y1="205" x2="182" y2="415" stroke="#C6A87C" strokeOpacity="0.4" strokeWidth="3" strokeLinecap="round" />
+                  <circle cx="173" cy="198" r="7" fill="#D4AF37" fillOpacity="0.6" />
+                  <circle cx="173" cy="198" r="3" fill="#D4AF37" />
+                </svg>
+              </div>
+
+              {/* Text + CTA */}
+              <div className="text-center md:text-left">
+                <span className="text-primary font-display font-bold tracking-[0.3em] text-xs uppercase mb-3 block">
+                  The Oracle Awaits
+                </span>
+                <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
+                  What Is Your Destined Brew?
+                </h2>
+                <p className="font-serif italic text-gray-400 text-base md:text-lg mb-8 max-w-lg leading-relaxed">
+                  Let the Oracle read the scrolls of fate and reveal which legendary brew has been destined for your soul since the ancient days.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                  <Link
+                    href="/oracle"
+                    className="inline-block px-8 py-4 bg-primary text-bg-dark font-display font-bold text-xs uppercase tracking-widest rounded-full hover:bg-white hover:text-accent-brown transition-all transform hover:-translate-y-0.5 shadow-lg"
+                  >
+                    Consult the Oracle
+                  </Link>
+                  <div className="flex items-center justify-center md:justify-start gap-2 text-gray-500 font-display text-xs uppercase tracking-widest">
+                    <svg className="w-3 h-3 text-primary" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2 L13.5 8.5 L20 7 L15.5 12 L20 17 L13.5 15.5 L12 22 L10.5 15.5 L4 17 L8.5 12 L4 7 L10.5 8.5 Z" />
+                    </svg>
+                    5 Questions · Your Fate Awaits
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ScrollAnimation>
+        </div>
+      </section>
+
       {/* ═══════════ TESTIMONIALS ═══════════ */}
       <section className="py-24 bg-bg-dark border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
