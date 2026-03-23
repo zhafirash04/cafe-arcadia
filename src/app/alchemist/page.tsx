@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Meja Alkemis — Café Arcadia",
+  title: "The Alchemist's Table — Café Arcadia",
   description:
     "Forge your own custom elixir at the Alchemist's Table. Choose your base, essences, and vessel to craft a legendary brew.",
 };
@@ -44,7 +44,7 @@ export default function AlkemisPage() {
             </svg>
           </div>
           <span className="text-primary font-display font-bold tracking-[0.3em] text-xs uppercase mb-4 block">
-            Meja Alkemis
+            The Alchemist&apos;s Table
           </span>
           <h1 className="font-display text-4xl md:text-6xl font-bold text-white mb-4">
             The Alchemist&apos;s Table

@@ -72,7 +72,7 @@ export default function StepEssence({
           Add Your Essence
         </h3>
         <p className="font-serif italic text-[#5a3e2b] text-sm mt-1">
-          Pilih Esensi — up to 2 may be bound
+          Bind your essences — up to two may be woven
         </p>
       </div>
 
@@ -141,7 +141,7 @@ export default function StepEssence({
             className="text-center text-sm font-serif italic"
             style={{ color: "#8B4513" }}
           >
-            An Alkemist may only bind two essences at once.
+            An Alchemist may only bind two essences at once.
           </motion.p>
         )}
       </AnimatePresence>

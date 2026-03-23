@@ -99,7 +99,7 @@ export default function StepBase({ selected, onSelect, onNext }: StepBaseProps) 
           Choose Your Base
         </h3>
         <p className="font-serif italic text-[#5a3e2b] text-sm mt-1">
-          Pilih Dasar Ramuan
+          The foundation of your legendary brew
         </p>
       </div>
 
