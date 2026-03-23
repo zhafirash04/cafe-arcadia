@@ -44,7 +44,7 @@ export default function AlkemisPage() {
             </svg>
           </div>
           <span className="text-primary font-display font-bold tracking-[0.3em] text-xs uppercase mb-4 block">
-            The Alchemist&apos;s Table
+            The Alchemist&apos;s Guild
           </span>
           <h1 className="font-display text-4xl md:text-6xl font-bold text-white mb-4">
             The Alchemist&apos;s Table
