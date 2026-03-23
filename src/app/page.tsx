@@ -598,6 +598,56 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ═══════════ CARTOGRAPHY ENTRY POINT ═══════════ */}
+      <section className="py-24 bg-bg-dark border-t border-gray-800 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[160px] opacity-30" />
+        </div>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <ScrollAnimation>
+            <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+              <div
+                className="flex-shrink-0 w-72 h-40 rounded overflow-hidden"
+                style={{
+                  WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%)",
+                  maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%)",
+                  border: "1px solid rgba(196,160,53,0.2)",
+                }}
+              >
+                <svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" style={{ background: "#0a0f1a" }}>
+                  <path d="M590,280 C598,268 612,262 628,265 C644,268 658,275 665,288 C672,301 670,316 662,328 C654,340 640,346 624,344 C608,342 594,334 588,321 C582,308 582,292 590,280 Z" fill="#8b2500" opacity="0.7" />
+                  <path d="M190,270 C202,256 218,250 236,252 C254,254 268,264 274,278 C280,292 276,308 266,318 C256,328 240,332 224,328 C208,324 196,312 190,298 C184,284 178,284 190,270 Z" fill="#7a6200" opacity="0.7" />
+                  <path d="M910,370 C926,356 948,352 966,358 C984,364 996,378 998,394 C1000,410 992,426 978,434 C964,442 944,440 928,430 C912,420 900,404 900,388 C900,374 896,384 910,370 Z" fill="#1a4a2e" opacity="0.7" />
+                  <path d="M210,410 C228,394 252,386 280,388 C308,390 334,402 348,420 C362,438 362,460 348,476 C334,492 308,498 280,494 C252,490 228,476 214,458 C200,440 192,426 210,410 Z" fill="#2d5a1b" opacity="0.7" />
+                  <path d="M134,258 C144,248 158,244 172,246 C186,248 196,256 200,266 C204,276 200,288 192,296 C184,304 172,306 160,302 C148,298 138,288 134,276 C130,264 124,268 134,258 Z" fill="#3a3a6e" opacity="0.7" />
+                  <path d="M672,232 C682,220 698,214 714,218 C730,222 742,234 744,248 C746,262 738,274 724,280 C710,286 694,282 682,272 C670,262 662,250 672,232 Z" fill="#1e5e4a" opacity="0.7" />
+                  <path d="M630,362 C642,350 658,344 674,348 C690,352 700,364 700,378 C700,392 690,404 674,408 C658,412 642,406 632,394 C622,382 618,374 630,362 Z" fill="#7a1a1a" opacity="0.7" />
+                  <rect x="2" y="2" width="1196" height="696" fill="none" stroke="#c4a035" strokeWidth="4" />
+                </svg>
+              </div>
+              <div className="text-center md:text-left">
+                <span className="text-primary font-display font-bold tracking-[0.3em] text-xs uppercase mb-3 block">
+                  The Cartographer&apos;s Guild
+                </span>
+                <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
+                  The Known Realms
+                </h2>
+                <p className="font-serif italic text-gray-400 text-base md:text-lg mb-8 max-w-lg leading-relaxed">
+                  Our brews do not come from warehouses. They come from places
+                  with names worth knowing.
+                </p>
+                <Link
+                  href="/cartography"
+                  className="inline-block px-8 py-4 bg-primary text-bg-dark font-display font-bold text-xs uppercase tracking-widest rounded-full hover:bg-white hover:text-accent-brown transition-all transform hover:-translate-y-0.5 shadow-lg"
+                >
+                  Consult the Cartographer →
+                </Link>
+              </div>
+            </div>
+          </ScrollAnimation>
+        </div>
+      </section>
+
       {/* ═══════════ TESTIMONIALS ═══════════ */}
       <section className="py-24 bg-bg-dark border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
