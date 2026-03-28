@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useCart } from "@/context/CartContext";
 import Link from "next/link";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 /* ── Types ───────────────────────────────────────────────── */
 type Answer = "A" | "B" | "C" | "D";
@@ -13,7 +14,75 @@ type BrewId =
   | "mystics-essence"
   | "elven-morning-mist"
   | "healers-matcha";
-type Phase = "intro" | "reading" | "revelation";
+type Phase = "intro" | "reading" | "divining" | "revelation";
+
+/* ── Gemini Configuration ────────────────────────────────── */
+const SYSTEM_PROMPT = `You are The Oracle of Café Arcadia, an ancient mystical entity who speaks in dramatic, poetic fantasy prose. You reveal the destined brew of those who seek your wisdom.
+
+Based on the seeker's 5 answers, you must:
+1. Choose ONE brew: Dragon's Breath, Mystic's Essence, Elven Morning Mist, or Healer's Matcha.
+2. Write a destiny revelation (3-4 sentences) in oracle fantasy style, second-person ("Your soul carries...").
+3. End with exactly: "Your destined brew: [brew name]."
+
+Respond ONLY with the narration. No JSON, no preamble.`;
+
+const brewNameToId: Record<string, BrewId> = {
+  "dragon's breath": "dragons-breath",
+  "golden knight": "golden-knight",
+  "mystic's essence": "mystics-essence",
+  "elven morning mist": "elven-morning-mist",
+  "healer's matcha": "healers-matcha",
+};
+
+function parseBrewFromResponse(text: string): { brewId: BrewId; prophecy: string } {
+  // Try to extract brew name from "Your destined brew: XYZ."
+  const match = text.match(/your destined brew:\s*(.+?)\./i);
+  let brewId: BrewId = "golden-knight"; // fallback
+
+  if (match) {
+    const rawName = match[1].trim().toLowerCase();
+    brewId = brewNameToId[rawName] || "golden-knight";
+  } else {
+    // Fuzzy fallback: check if any brew name appears in the text
+    for (const [name, id] of Object.entries(brewNameToId)) {
+      if (text.toLowerCase().includes(name)) {
+        brewId = id;
+        break;
+      }
+    }
+  }
+
+  // Remove the "Your destined brew: ..." line from prophecy display
+  const prophecy = text.replace(/your destined brew:\s*.+?\.?\s*$/i, "").trim();
+
+  return { brewId, prophecy };
+}
+
+async function consultGemini(
+  answers: Record<number, Answer>,
+  questionsData: typeof questions
+): Promise<{ brewId: BrewId; prophecy: string }> {
+  const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+  if (!apiKey) throw new Error("API key not configured");
+
+  const genAI = new GoogleGenerativeAI(apiKey);
+  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+  const userPrompt = questionsData
+    .map((q, i) => {
+      const chosenOption = q.options.find((o) => o.key === answers[i]);
+      return `Q${i + 1}: ${q.text}\nAnswer: ${chosenOption?.text || "No answer"}`;
+    })
+    .join("\n\n");
+
+  const result = await model.generateContent({
+    contents: [{ role: "user", parts: [{ text: userPrompt }] }],
+    systemInstruction: { role: "model", parts: [{ text: SYSTEM_PROMPT }] },
+  });
+
+  const responseText = result.response.text();
+  return parseBrewFromResponse(responseText);
+}
 
 /* ── Quiz Data ───────────────────────────────────────────── */
 const questions = [
@@ -671,11 +740,13 @@ function QuestionCard({
 /* ── Brew Revelation ─────────────────────────────────────── */
 function BrewRevelation({
   brew,
+  aiProphecy,
   onAddToCart,
   onRetry,
   added,
 }: {
   brew: BrewResult;
+  aiProphecy?: string;
   onAddToCart: () => void;
   onRetry: () => void;
   added: boolean;
@@ -786,7 +857,7 @@ function BrewRevelation({
         transition={{ delay: 1.6, duration: 0.6 }}
         className="font-serif italic text-gray-300 text-base md:text-lg leading-relaxed max-w-lg mx-auto mb-10 p-6 bg-surface-dark/60 rounded-2xl border border-primary/10"
       >
-        &ldquo;{brew.prophecy}&rdquo;
+        &ldquo;{aiProphecy || brew.prophecy}&rdquo;
       </motion.blockquote>
 
       {/* Action buttons */}
@@ -896,6 +967,113 @@ function IntroScreen({ onBegin }: { onBegin: () => void }) {
   );
 }
 
+/* ── Divining Screen (Loading State) ─────────────────────── */
+function DiviningScreen() {
+  return (
+    <div className="text-center">
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="text-primary font-display font-bold tracking-[0.3em] text-xs uppercase mb-6"
+      >
+        The Oracle Is Reading Your Fate
+      </motion.p>
+
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.6 }}
+        className="font-display text-3xl md:text-4xl font-bold text-white mb-8 tracking-tight"
+      >
+        Divining the Scrolls...
+      </motion.h2>
+
+      {/* Animated rune circles */}
+      <div className="flex items-center justify-center gap-3 mb-10">
+        {[0, 1, 2].map((i) => (
+          <motion.div
+            key={i}
+            className="w-4 h-4 rounded-full border-2 border-primary"
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.3, 1, 0.3],
+              backgroundColor: [
+                "rgba(198,168,124,0)",
+                "rgba(198,168,124,0.6)",
+                "rgba(198,168,124,0)",
+              ],
+            }}
+            transition={{
+              duration: 1.2,
+              repeat: Infinity,
+              delay: i * 0.3,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0.4, 0.8, 0.4] }}
+        transition={{ duration: 2, repeat: Infinity }}
+        className="font-serif italic text-gray-500 text-base max-w-sm mx-auto"
+      >
+        The ancient one peers through the mist of ages, reading the threads of
+        your destiny...
+      </motion.p>
+    </div>
+  );
+}
+
+/* ── Error Screen ────────────────────────────────────────── */
+function ErrorScreen({ onRetry }: { onRetry: () => void }) {
+  return (
+    <div className="text-center">
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="text-primary font-display font-bold tracking-[0.3em] text-xs uppercase mb-6"
+      >
+        The Mists Are Unclear
+      </motion.p>
+
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="font-display text-3xl md:text-4xl font-bold text-white mb-6 tracking-tight"
+      >
+        The Oracle Cannot See
+      </motion.h2>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        className="font-serif italic text-gray-400 text-lg max-w-md mx-auto mb-10 leading-relaxed"
+      >
+        A dark force clouds the Oracle&apos;s vision. The threads of fate are
+        tangled beyond mortal comprehension. Seek the Oracle once more when the
+        stars realign.
+      </motion.p>
+
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6 }}
+        whileHover={{ scale: 1.04 }}
+        whileTap={{ scale: 0.96 }}
+        onClick={onRetry}
+        className="px-10 py-4 bg-primary text-bg-dark font-display font-bold uppercase tracking-wider rounded-full hover:bg-white hover:text-accent-brown transition-all shadow-lg text-sm"
+      >
+        Try Again
+      </motion.button>
+    </div>
+  );
+}
+
 /* ── Main Component ──────────────────────────────────────── */
 export default function OracleQuiz() {
   const { addItem } = useCart();
@@ -905,10 +1083,35 @@ export default function OracleQuiz() {
   const [result, setResult] = useState<BrewId | null>(null);
   const [questionKey, setQuestionKey] = useState(0);
   const [added, setAdded] = useState(false);
+  const [aiProphecy, setAiProphecy] = useState<string | undefined>(undefined);
+  const [hasError, setHasError] = useState(false);
 
   const handleBegin = () => {
     setPhase("reading");
   };
+
+  const callGeminiAndReveal = useCallback(
+    async (allAnswers: Record<number, Answer>) => {
+      setPhase("divining");
+      setHasError(false);
+
+      try {
+        const { brewId, prophecy } = await consultGemini(allAnswers, questions);
+        setResult(brewId);
+        setAiProphecy(prophecy);
+        setPhase("revelation");
+      } catch (err) {
+        console.error("Gemini API error:", err);
+        // Fallback: use local scoring
+        const fallbackId = calculateResult(allAnswers);
+        setResult(fallbackId);
+        setAiProphecy(undefined);
+        setHasError(true);
+        setPhase("revelation");
+      }
+    },
+    []
+  );
 
   const handleAnswer = (answer: Answer) => {
     const newAnswers = { ...answers, [currentQuestion]: answer };
@@ -918,10 +1121,8 @@ export default function OracleQuiz() {
       setQuestionKey((k) => k + 1);
       setCurrentQuestion((q) => q + 1);
     } else {
-      const brewId = calculateResult(newAnswers);
-      setResult(brewId);
-      // Small delay for the exit animation before showing revelation
-      setTimeout(() => setPhase("revelation"), 350);
+      // Final question answered — consult Gemini
+      callGeminiAndReveal(newAnswers);
     }
   };
 
@@ -945,6 +1146,8 @@ export default function OracleQuiz() {
     setResult(null);
     setQuestionKey(0);
     setAdded(false);
+    setAiProphecy(undefined);
+    setHasError(false);
   };
 
   return (
@@ -953,14 +1156,14 @@ export default function OracleQuiz() {
       <div
         className="absolute inset-0 opacity-10 pointer-events-none"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C6A87C' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C%2Fg%3E%3C%2Fsvg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C6A87C' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
 
       {/* Ambient light blobs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/8 rounded-full blur-[140px] opacity-25 pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-[120px] opacity-20 pointer-events-none" />
-      {phase === "revelation" && (
+      {(phase === "revelation" || phase === "divining") && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -1003,7 +1206,7 @@ export default function OracleQuiz() {
               />
             )}
 
-            {/* Content: Intro / Question / Revelation */}
+            {/* Content: Intro / Question / Divining / Revelation */}
             <AnimatePresence mode="wait">
               {phase === "intro" && (
                 <motion.div
@@ -1033,7 +1236,31 @@ export default function OracleQuiz() {
                 </motion.div>
               )}
 
-              {phase === "revelation" && result && (
+              {phase === "divining" && (
+                <motion.div
+                  key="divining"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <DiviningScreen />
+                </motion.div>
+              )}
+
+              {phase === "revelation" && hasError && (
+                <motion.div
+                  key="error"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <ErrorScreen onRetry={handleRetry} />
+                </motion.div>
+              )}
+
+              {phase === "revelation" && result && !hasError && (
                 <motion.div
                   key="revelation"
                   initial={{ opacity: 0, y: 20 }}
@@ -1043,6 +1270,7 @@ export default function OracleQuiz() {
                 >
                   <BrewRevelation
                     brew={brewResults[result]}
+                    aiProphecy={aiProphecy}
                     onAddToCart={handleAddToCart}
                     onRetry={handleRetry}
                     added={added}
@@ -1054,10 +1282,11 @@ export default function OracleQuiz() {
 
           {/* ── Oracle figure (right side, desktop only) ── */}
           <div className="hidden lg:flex w-56 xl:w-64 flex-shrink-0 sticky top-32 h-[480px] items-end">
-            <OracleSVG phase={phase} questionKey={questionKey} />
+            <OracleSVG phase={phase === "divining" ? "revelation" : phase} questionKey={questionKey} />
           </div>
         </div>
       </div>
     </main>
   );
 }
+
