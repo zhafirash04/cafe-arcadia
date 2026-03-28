@@ -67,8 +67,13 @@ async function consultGemini(
 
   const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({
-    model: "gemini-flash-latest",
+    model: "gemini-2.5-flash",
     systemInstruction: SYSTEM_PROMPT,
+    generationConfig: {
+      temperature: 1.5,
+      topP: 0.95,
+      topK: 40,
+    },
   });
 
   const userPrompt = questionsData
@@ -78,7 +83,10 @@ async function consultGemini(
     })
     .join("\n\n");
 
-  const result = await model.generateContent(userPrompt);
+  // Add unique seed so each reading is different even with same answers
+  const seed = `\n\n[Oracle Reading #${Date.now()}-${Math.random().toString(36).slice(2, 8)}]`;
+
+  const result = await model.generateContent(userPrompt + seed);
   const responseText = result.response.text();
   return parseBrewFromResponse(responseText);
 }
