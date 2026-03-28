@@ -36,12 +36,13 @@ export default function Navbar() {
                 animate={{ y: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className={`fixed w-full z-40 top-0 transition-all duration-300 ${scrolled
-                        ? "bg-[#0f0c0a]/95 dark:bg-[#0f0c0a]/95 light:bg-white/95 backdrop-blur-md border-b border-primary/20 shadow-lg"
+                        ? "bg-[#0f0c0a]/95 dark:bg-[#0f0c0a]/95 light:bg-white/95 backdrop-blur-md shadow-lg"
                         : "bg-transparent"
                     }`}
             >
+                {/* ── Tier 1: Logo + Actions ── */}
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-24">
+                    <div className="flex justify-between items-center h-20">
                         {/* Logo */}
                         <Link href="/" className="flex items-center gap-4 group">
                             <div className="relative h-14 w-14">
@@ -63,19 +64,8 @@ export default function Navbar() {
                             </div>
                         </Link>
 
-                        {/* Desktop Links */}
-                        <div className="hidden md:flex items-center space-x-10">
-                            {navLinks.map((link) => (
-                                <Link
-                                    key={link.name}
-                                    href={link.href}
-                                    className="font-display text-xs font-semibold hover:text-primary transition-colors uppercase tracking-[0.15em] relative group text-text-dark"
-                                >
-                                    {link.name}
-                                    <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-                                </Link>
-                            ))}
-
+                        {/* Desktop Actions (right side) */}
+                        <div className="hidden md:flex items-center gap-4">
                             {/* Theme Toggle */}
                             <motion.button
                                 whileTap={{ scale: 0.9 }}
@@ -212,6 +202,24 @@ export default function Navbar() {
                                     )}
                                 </svg>
                             </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* ── Tier 2: Sub-nav links (desktop only) ── */}
+                <div className="hidden md:block border-t border-b border-primary/25">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex items-center justify-center gap-10 h-11">
+                            {navLinks.map((link) => (
+                                <Link
+                                    key={link.name}
+                                    href={link.href}
+                                    className="font-display text-[11px] font-semibold hover:text-primary transition-colors uppercase tracking-[0.18em] relative group text-text-dark"
+                                >
+                                    {link.name}
+                                    <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                                </Link>
+                            ))}
                         </div>
                     </div>
                 </div>
