@@ -24,6 +24,8 @@ Based on the seeker's 5 answers, you must:
 2. Write a destiny revelation (3-4 sentences) in oracle fantasy style, second-person ("Your soul carries...").
 3. End with exactly: "Your destined brew: [brew name]."
 
+CRITICAL: Every reading MUST be unique. Use different metaphors, imagery, mythical references, and sentence structures each time. Never repeat the same narration. Draw from varied fantasy elements — ancient forests, celestial bodies, volcanic forges, ocean depths, dragon lore, elven wisdom, arcane magic, forgotten kingdoms, etc.
+
 Respond ONLY with the narration. No JSON, no preamble.`;
 
 const brewNameToId: Record<string, BrewId> = {
