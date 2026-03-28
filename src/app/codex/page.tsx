@@ -6,6 +6,7 @@ import ScrollAnimation from "@/components/ScrollAnimation";
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { Droplet, Coffee, Snowflake, BookOpen, Swords, Leaf, Sparkles, Library } from "lucide-react";
+import { drinkSVGMap } from "@/components/codex/DrinkSVGs";
 
 /* ── data ────────────────────────────────────────────── */
 const roastLevels = ["Light", "Medium", "Dark", "Dragon-Fire"];
@@ -351,12 +352,17 @@ export default function CodexPage() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {elixirs.map((item, i) => (
                             <ScrollAnimation key={item.name} delay={i * 0.15}>
-                                <div className="bg-[#1a1614] border border-primary/10 hover:border-primary/30 transition-all group p-6 rounded-sm">
-                                    <div className="flex items-center justify-between mb-4">
-                                        <span className="px-2 py-1 bg-bg-dark text-primary text-[10px] font-display font-bold uppercase tracking-widest border border-primary/20">
-                                            {item.price}
-                                        </span>
+                                <div className="bg-[#1a1614] border border-primary/10 hover:border-primary/30 transition-all group rounded-sm overflow-hidden">
+                                    {/* SVG Illustration */}
+                                    <div className="relative aspect-[4/3] overflow-hidden bg-[#1a1614]">
+                                        {drinkSVGMap[item.name] && (() => { const SVG = drinkSVGMap[item.name]; return <SVG />; })()}
+                                        <div className="absolute top-3 left-3">
+                                            <span className="px-2 py-1 bg-bg-dark/80 text-primary text-[10px] font-display font-bold uppercase tracking-widest backdrop-blur-sm border border-primary/20">
+                                                {item.price}
+                                            </span>
+                                        </div>
                                     </div>
+                                    <div className="p-6">
                                     <h3 className="font-display text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
                                         {item.name}
                                     </h3>
@@ -380,6 +386,7 @@ export default function CodexPage() {
                                     <p className="text-xs text-gray-500 font-display uppercase tracking-widest">
                                         {item.origin}
                                     </p>
+                                    </div>
                                 </div>
                             </ScrollAnimation>
                         ))}
@@ -404,12 +411,17 @@ export default function CodexPage() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {coldBrews.map((item, i) => (
                             <ScrollAnimation key={item.name} delay={i * 0.15}>
-                                <div className="bg-[#1a1614] border border-primary/10 hover:border-primary/30 transition-all group p-6 rounded-sm">
-                                    <div className="flex items-center justify-between mb-4">
-                                        <span className="px-2 py-1 bg-bg-dark text-primary text-[10px] font-display font-bold uppercase tracking-widest border border-primary/20">
-                                            {item.price}
-                                        </span>
+                                <div className="bg-[#1a1614] border border-primary/10 hover:border-primary/30 transition-all group rounded-sm overflow-hidden">
+                                    {/* SVG Illustration */}
+                                    <div className="relative aspect-[4/3] overflow-hidden bg-[#1a1614]">
+                                        {drinkSVGMap[item.name] && (() => { const SVG = drinkSVGMap[item.name]; return <SVG />; })()}
+                                        <div className="absolute top-3 left-3">
+                                            <span className="px-2 py-1 bg-bg-dark/80 text-primary text-[10px] font-display font-bold uppercase tracking-widest backdrop-blur-sm border border-primary/20">
+                                                {item.price}
+                                            </span>
+                                        </div>
                                     </div>
+                                    <div className="p-6">
                                     <h3 className="font-display text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
                                         {item.name}
                                     </h3>
@@ -433,6 +445,7 @@ export default function CodexPage() {
                                     <p className="text-xs text-gray-500 font-display uppercase tracking-widest">
                                         {item.origin}
                                     </p>
+                                    </div>
                                 </div>
                             </ScrollAnimation>
                         ))}
@@ -457,7 +470,12 @@ export default function CodexPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {seasonalDrinks.map((drink, i) => (
                             <ScrollAnimation key={drink.name} delay={i * 0.1}>
-                                <div className="bg-[#1a1614] border border-primary/10 hover:border-primary/30 transition-all p-6 rounded-sm text-center group">
+                                <div className="bg-[#1a1614] border border-primary/10 hover:border-primary/30 transition-all rounded-sm text-center group overflow-hidden">
+                                    {/* SVG Illustration */}
+                                    <div className="relative aspect-square overflow-hidden bg-[#1a1614]">
+                                        {drinkSVGMap[drink.name] && (() => { const SVG = drinkSVGMap[drink.name]; return <SVG />; })()}
+                                    </div>
+                                    <div className="p-6">
                                     <h3 className="font-display text-lg font-bold text-white mb-3 group-hover:text-primary transition-colors">
                                         {drink.name}
                                     </h3>
@@ -473,6 +491,7 @@ export default function CodexPage() {
                                     >
                                         Add to Cart
                                     </button>
+                                    </div>
                                 </div>
                             </ScrollAnimation>
                         ))}
