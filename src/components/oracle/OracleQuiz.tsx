@@ -66,7 +66,10 @@ async function consultGemini(
   if (!apiKey) throw new Error("API key not configured");
 
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+  const model = genAI.getGenerativeModel({
+    model: "gemini-2.0-flash",
+    systemInstruction: SYSTEM_PROMPT,
+  });
 
   const userPrompt = questionsData
     .map((q, i) => {
@@ -75,14 +78,11 @@ async function consultGemini(
     })
     .join("\n\n");
 
-  const result = await model.generateContent({
-    contents: [{ role: "user", parts: [{ text: userPrompt }] }],
-    systemInstruction: { role: "model", parts: [{ text: SYSTEM_PROMPT }] },
-  });
-
+  const result = await model.generateContent(userPrompt);
   const responseText = result.response.text();
   return parseBrewFromResponse(responseText);
 }
+
 
 /* ── Quiz Data ───────────────────────────────────────────── */
 const questions = [
