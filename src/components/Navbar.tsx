@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "@/context/ThemeContext";
 import { useCart } from "@/context/CartContext";
+import AmbientSoundToggle from "@/components/AmbientSoundToggle";
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
@@ -66,6 +67,9 @@ export default function Navbar() {
 
                         {/* Desktop Actions (right side) */}
                         <div className="hidden md:flex items-center gap-4">
+                            {/* Ambient Sound Toggle */}
+                            <AmbientSoundToggle />
+
                             {/* Theme Toggle */}
                             <motion.button
                                 whileTap={{ scale: 0.9 }}

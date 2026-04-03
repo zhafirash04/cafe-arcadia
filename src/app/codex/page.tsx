@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import ScrollAnimation from "@/components/ScrollAnimation";
 import { useState } from "react";
@@ -13,6 +14,7 @@ const roastLevels = ["Light", "Medium", "Dark", "Dragon-Fire"];
 
 const legendaryRoasts = [
     {
+        id: "dragons-breath",
         name: "Dragon's Breath",
         origin: "Northern Volcanic Peaks",
         desc: "Smoky, intense, with notes of dark chocolate and ash. A brew for the bold who dare to wield fire.",
@@ -23,6 +25,7 @@ const legendaryRoasts = [
         img: "/images/dark-roast.png",
     },
     {
+        id: "golden-knight",
         name: "Golden Knight",
         origin: "Eastern Honey Meadows",
         desc: "A balanced medium roast with hints of honey and toasted almond. Smooth as enchanted silk armor.",
@@ -33,6 +36,7 @@ const legendaryRoasts = [
         img: "/images/latte-art.png",
     },
     {
+        id: "elfs-morning",
         name: "Elf's Morning",
         origin: "Ancient Forest Canopy",
         desc: "Bright, floral, and impossibly light. A delicate bloom of citrus and chamomile whispers.",
@@ -46,6 +50,7 @@ const legendaryRoasts = [
 
 const elixirs = [
     {
+        id: "mystic-green",
         name: "Mystic Green",
         price: "15 GP",
         desc: "Ceremonial matcha infused with mint herbs, cleansing the soul in a single sip.",
@@ -53,6 +58,7 @@ const elixirs = [
         origin: "Fairie Meadow Dark Forest",
     },
     {
+        id: "healers-chamomile",
         name: "Healer's Chamomile",
         price: "14 GP",
         desc: "White chamomile blossom dried under the moonlight, calming all restless wanderers.",
@@ -60,6 +66,7 @@ const elixirs = [
         origin: "Moonlit Monastery Cliffs",
     },
     {
+        id: "royal-grey",
         name: "Royal Grey",
         price: "16 GP",
         desc: "High peak leaves with floral tones picked by elder monks in perfect stillness.",
@@ -70,6 +77,7 @@ const elixirs = [
 
 const coldBrews = [
     {
+        id: "void-essence",
         name: "Void Essence",
         price: "25 GP",
         desc: "Steeped for 48 hours in absolute darkness. A recipe only alchemists dare brew.",
@@ -77,6 +85,7 @@ const coldBrews = [
         origin: "Prime Midnight Dark Pool",
     },
     {
+        id: "cloud-walker",
         name: "Cloud Walker",
         price: "20 GP",
         desc: "Infused with nitrogen gas creating a cascading, creamy texture layered in still water.",
@@ -84,6 +93,7 @@ const coldBrews = [
         origin: "Eastern Spring Hills",
     },
     {
+        id: "travelers-flask",
         name: "Traveler's Flask",
         price: "22 GP",
         desc: "Has served cold brew travelers for ages. Known for its subtle honey notes and clarity.",
@@ -271,8 +281,8 @@ export default function CodexPage() {
                         {filteredRoasts.map((roast, i) => (
                             <ScrollAnimation key={roast.name} delay={i * 0.15}>
                                 <div className="bg-[#1a1614] border border-primary/10 hover:border-primary/30 transition-all group rounded-sm overflow-hidden">
-                                    {/* Image */}
-                                    <div className="relative aspect-[4/3] overflow-hidden">
+                                    {/* Image - Clickable */}
+                                    <Link href={`/codex/${roast.id}`} className="block relative aspect-[4/3] overflow-hidden">
                                         <Image
                                             src={roast.img}
                                             alt={roast.name}
@@ -284,13 +294,21 @@ export default function CodexPage() {
                                                 {roast.price}
                                             </span>
                                         </div>
-                                    </div>
+                                        {/* View detail overlay */}
+                                        <div className="absolute inset-0 bg-bg-dark/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <span className="px-4 py-2 border border-primary text-primary text-xs font-display uppercase tracking-widest">
+                                                View Legend
+                                            </span>
+                                        </div>
+                                    </Link>
 
                                     {/* Content */}
                                     <div className="p-6">
-                                        <h3 className="font-display text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
-                                            {roast.name}
-                                        </h3>
+                                        <Link href={`/codex/${roast.id}`}>
+                                            <h3 className="font-display text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors cursor-pointer">
+                                                {roast.name}
+                                            </h3>
+                                        </Link>
                                         <p className="text-xs text-gray-500 uppercase tracking-wider mb-3 font-display">
                                             {roast.origin}
                                         </p>
