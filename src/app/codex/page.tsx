@@ -103,10 +103,10 @@ const coldBrews = [
 ];
 
 const seasonalDrinks = [
-    { name: "Winter's Solstice", desc: "Spiced black cold chocolate, clove and orange zest.", price: "24 GP" },
-    { name: "Fae Blossom", desc: "Light mint infused with cherry blossom details.", price: "22 GP" },
-    { name: "Desert Mirage", desc: "Mediterranean honey and saffron lemon and stone fruit notes.", price: "25 GP" },
-    { name: "Harvest Moon", desc: "Pumpkin spice decaf with a dash of maple and cardamom.", price: "23 GP" },
+    { id: "winters-solstice", name: "Winter's Solstice", desc: "Spiced black cold chocolate, clove and orange zest.", price: "24 GP" },
+    { id: "fae-blossom", name: "Fae Blossom", desc: "Light mint infused with cherry blossom details.", price: "22 GP" },
+    { id: "desert-mirage", name: "Desert Mirage", desc: "Mediterranean honey and saffron lemon and stone fruit notes.", price: "25 GP" },
+    { id: "harvest-moon", name: "Harvest Moon", desc: "Pumpkin spice decaf with a dash of maple and cardamom.", price: "23 GP" },
 ];
 
 const brewingMethods = [
@@ -371,19 +371,27 @@ export default function CodexPage() {
                         {elixirs.map((item, i) => (
                             <ScrollAnimation key={item.name} delay={i * 0.15}>
                                 <div className="bg-[#1a1614] border border-primary/10 hover:border-primary/30 transition-all group rounded-sm overflow-hidden">
-                                    {/* SVG Illustration */}
-                                    <div className="relative aspect-[4/3] overflow-hidden bg-[#1a1614]">
+                                    {/* SVG Illustration - Clickable */}
+                                    <Link href={`/codex/${item.id}`} className="relative aspect-[4/3] overflow-hidden bg-[#1a1614] block">
                                         {drinkSVGMap[item.name] && (() => { const SVG = drinkSVGMap[item.name]; return <SVG />; })()}
                                         <div className="absolute top-3 left-3">
                                             <span className="px-2 py-1 bg-bg-dark/80 text-primary text-[10px] font-display font-bold uppercase tracking-widest backdrop-blur-sm border border-primary/20">
                                                 {item.price}
                                             </span>
                                         </div>
-                                    </div>
+                                        {/* View detail overlay */}
+                                        <div className="absolute inset-0 bg-bg-dark/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <span className="px-4 py-2 border border-primary text-primary text-xs font-display uppercase tracking-widest">
+                                                View Legend
+                                            </span>
+                                        </div>
+                                    </Link>
                                     <div className="p-6">
-                                    <h3 className="font-display text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
-                                        {item.name}
-                                    </h3>
+                                    <Link href={`/codex/${item.id}`}>
+                                        <h3 className="font-display text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors cursor-pointer">
+                                            {item.name}
+                                        </h3>
+                                    </Link>
                                     <p className="text-gray-400 text-sm leading-relaxed mb-4">
                                         {item.desc}
                                     </p>
@@ -430,19 +438,27 @@ export default function CodexPage() {
                         {coldBrews.map((item, i) => (
                             <ScrollAnimation key={item.name} delay={i * 0.15}>
                                 <div className="bg-[#1a1614] border border-primary/10 hover:border-primary/30 transition-all group rounded-sm overflow-hidden">
-                                    {/* SVG Illustration */}
-                                    <div className="relative aspect-[4/3] overflow-hidden bg-[#1a1614]">
+                                    {/* SVG Illustration - Clickable */}
+                                    <Link href={`/codex/${item.id}`} className="relative aspect-[4/3] overflow-hidden bg-[#1a1614] block">
                                         {drinkSVGMap[item.name] && (() => { const SVG = drinkSVGMap[item.name]; return <SVG />; })()}
                                         <div className="absolute top-3 left-3">
                                             <span className="px-2 py-1 bg-bg-dark/80 text-primary text-[10px] font-display font-bold uppercase tracking-widest backdrop-blur-sm border border-primary/20">
                                                 {item.price}
                                             </span>
                                         </div>
-                                    </div>
+                                        {/* View detail overlay */}
+                                        <div className="absolute inset-0 bg-bg-dark/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <span className="px-4 py-2 border border-primary text-primary text-xs font-display uppercase tracking-widest">
+                                                View Legend
+                                            </span>
+                                        </div>
+                                    </Link>
                                     <div className="p-6">
-                                    <h3 className="font-display text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
-                                        {item.name}
-                                    </h3>
+                                    <Link href={`/codex/${item.id}`}>
+                                        <h3 className="font-display text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors cursor-pointer">
+                                            {item.name}
+                                        </h3>
+                                    </Link>
                                     <p className="text-gray-400 text-sm leading-relaxed mb-4">
                                         {item.desc}
                                     </p>
@@ -489,14 +505,22 @@ export default function CodexPage() {
                         {seasonalDrinks.map((drink, i) => (
                             <ScrollAnimation key={drink.name} delay={i * 0.1}>
                                 <div className="bg-[#1a1614] border border-primary/10 hover:border-primary/30 transition-all rounded-sm text-center group overflow-hidden">
-                                    {/* SVG Illustration */}
-                                    <div className="relative aspect-square overflow-hidden bg-[#1a1614]">
+                                    {/* SVG Illustration - Clickable */}
+                                    <Link href={`/codex/${drink.id}`} className="relative aspect-square overflow-hidden bg-[#1a1614] block">
                                         {drinkSVGMap[drink.name] && (() => { const SVG = drinkSVGMap[drink.name]; return <SVG />; })()}
-                                    </div>
+                                        {/* View detail overlay */}
+                                        <div className="absolute inset-0 bg-bg-dark/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <span className="px-4 py-2 border border-primary text-primary text-xs font-display uppercase tracking-widest">
+                                                View Legend
+                                            </span>
+                                        </div>
+                                    </Link>
                                     <div className="p-6">
-                                    <h3 className="font-display text-lg font-bold text-white mb-3 group-hover:text-primary transition-colors">
-                                        {drink.name}
-                                    </h3>
+                                    <Link href={`/codex/${drink.id}`}>
+                                        <h3 className="font-display text-lg font-bold text-white mb-3 group-hover:text-primary transition-colors cursor-pointer">
+                                            {drink.name}
+                                        </h3>
+                                    </Link>
                                     <p className="text-gray-400 text-sm leading-relaxed mb-4">
                                         {drink.desc}
                                     </p>
