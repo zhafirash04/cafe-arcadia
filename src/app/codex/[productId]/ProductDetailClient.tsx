@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, ShoppingBag, Flame, MapPin, Scroll, Lightbulb } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { Product } from "@/lib/products";
+import { drinkSVGMap } from "@/components/codex/DrinkSVGs";
 
 interface Props {
   product: Product;
@@ -23,6 +24,9 @@ export default function ProductDetailClient({ product }: Props) {
       tag: product.level,
     });
   };
+
+  // Get the SVG component if this product uses SVG illustration
+  const SVGComponent = product.useSVG && drinkSVGMap[product.name] ? drinkSVGMap[product.name] : null;
 
   return (
     <main className="min-h-screen bg-bg-dark">
@@ -59,13 +63,20 @@ export default function ProductDetailClient({ product }: Props) {
             className="relative"
           >
             <div className="relative aspect-square rounded-sm overflow-hidden border border-primary/20">
-              <Image
-                src={product.image}
-                alt={product.name}
-                fill
-                className="object-cover"
-                priority
-              />
+              {/* Render SVG or Image based on product type */}
+              {SVGComponent ? (
+                <div className="w-full h-full">
+                  <SVGComponent />
+                </div>
+              ) : (
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              )}
               {/* Gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-bg-dark/60 via-transparent to-transparent" />
               

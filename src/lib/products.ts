@@ -13,6 +13,7 @@ export interface Product {
   category: "roast" | "elixir" | "cold-brew" | "seasonal";
   badge?: string;
   image: string;
+  useSVG?: boolean; // If true, use SVG illustration instead of image
   lore?: string;
   brewingTip?: string;
   tasteNotes?: string[];
@@ -81,6 +82,7 @@ export const products: Product[] = [
     level: "Light",
     category: "elixir",
     image: "/images/espresso-shot.png",
+    useSVG: true,
     lore: "The fairies of the Dark Forest have long used this blend in their cleansing rituals. The mint is said to clear the mind of dark thoughts, while the matcha grounds the spirit to the present moment.",
     brewingTip: "Whisk vigorously with a bamboo chasen until frothy. Serve in a wide bowl to appreciate the vibrant green color.",
     tasteNotes: ["Fresh Mint", "Grassy Matcha", "Sweet Dew", "Vegetal"],
@@ -96,6 +98,7 @@ export const products: Product[] = [
     level: "Light",
     category: "elixir",
     image: "/images/espresso-shot.png",
+    useSVG: true,
     lore: "The monks of the Moonlit Monastery harvest chamomile only during the full moon, believing the lunar light imbues each blossom with restorative properties. Many a weary traveler has found peace in this gentle brew.",
     brewingTip: "Steep in water below boiling for 5-7 minutes. Best enjoyed before rest, when the day's burdens need lifting.",
     tasteNotes: ["White Flowers", "Apple", "Honey", "Lavender"],
@@ -111,6 +114,7 @@ export const products: Product[] = [
     level: "Medium",
     category: "elixir",
     image: "/images/espresso-shot.png",
+    useSVG: true,
     lore: "Only the most patient monks are entrusted with harvesting the leaves for Royal Grey. They climb to the highest peaks in silence, picking each leaf with meditative precision. The bergamot oil is pressed by hand, one fruit at a time.",
     brewingTip: "Steep for 3-4 minutes in freshly boiled water. Add a splash of milk for a traditional experience, or enjoy pure to taste the citrus complexity.",
     tasteNotes: ["Bergamot", "Violet", "Black Tea", "Citrus Oil"],
@@ -129,6 +133,7 @@ export const products: Product[] = [
     category: "cold-brew",
     badge: "Master Alchemist",
     image: "/images/dark-roast.png",
+    useSVG: true,
     lore: "The Void Essence is brewed in underground chambers where no light has touched for centuries. The alchemists who tend to it work by touch alone, believing that even candlelight would disturb the brew's meditative darkness.",
     brewingTip: "Serve over a single large ice sphere. The slow melt will gradually soften the intensity, revealing deeper flavors as you drink.",
     tasteNotes: ["Midnight Cocoa", "Black Cherry", "Charred Oak", "Obsidian"],
@@ -144,6 +149,7 @@ export const products: Product[] = [
     level: "Medium",
     category: "cold-brew",
     image: "/images/latte-art.png",
+    useSVG: true,
     lore: "The Cloud Walker was discovered by accident when a brewmaster left cold brew near an alchemist's nitrogen experiment. The result was a creamy cascade that seemed to defy gravity, earning its celestial name.",
     brewingTip: "Best consumed fresh from the tap. Watch the cascade settle before your first sip — the visual experience is part of the magic.",
     tasteNotes: ["Cream", "Cocoa Butter", "Toasted Marshmallow", "Silk"],
@@ -159,6 +165,7 @@ export const products: Product[] = [
     level: "Dark",
     category: "cold-brew",
     image: "/images/espresso-shot.png",
+    useSVG: true,
     lore: "Every adventurer knows the Traveler's Flask — a cold brew concentrate designed to sustain long journeys. One flask mixed with spring water provides enough clarity and energy to cross any terrain.",
     brewingTip: "Dilute 1:2 with cold water or milk. Carry it on your journey and mix when you need a burst of clarity.",
     tasteNotes: ["Wild Honey", "Amber", "Brown Sugar", "Trail Spice"],
@@ -177,6 +184,7 @@ export const products: Product[] = [
     category: "seasonal",
     badge: "Limited Edition",
     image: "/images/dark-roast.png",
+    useSVG: true,
     lore: "Created to celebrate the longest night, Winter's Solstice is a warming embrace against the cold. The spices are sourced from the furthest reaches of the realm, combined only during the winter months.",
     brewingTip: "Warm gently and serve in a pre-heated mug. The spices bloom beautifully when slightly heated.",
     tasteNotes: ["Clove", "Orange Zest", "Dark Chocolate", "Cinnamon"],
@@ -193,6 +201,7 @@ export const products: Product[] = [
     category: "seasonal",
     badge: "Spring Limited",
     image: "/images/latte-art.png",
+    useSVG: true,
     lore: "When the cherry blossoms bloom in the Enchanted Gardens, the fairies celebrate with this delicate infusion. Each petal is hand-picked at the peak of bloom, preserving its fleeting beauty in liquid form.",
     brewingTip: "Serve chilled with a single cherry blossom floating on top. Best enjoyed outdoors during springtime.",
     tasteNotes: ["Cherry Blossom", "Fresh Mint", "Rose Water", "Light Honey"],
@@ -209,6 +218,7 @@ export const products: Product[] = [
     category: "seasonal",
     badge: "Summer Limited",
     image: "/images/espresso-shot.png",
+    useSVG: true,
     lore: "The Desert Mirage appears when you least expect it — a shimmering oasis of flavor in an otherwise harsh world. Saffron from distant dunes meets citrus from coastal groves in this improbable union.",
     brewingTip: "Serve over ice with a twist of lemon peel. The saffron unfolds slowly, revealing new dimensions with each sip.",
     tasteNotes: ["Saffron", "Lemon", "Apricot", "Wild Honey"],
@@ -225,6 +235,7 @@ export const products: Product[] = [
     category: "seasonal",
     badge: "Autumn Limited",
     image: "/images/latte-art.png",
+    useSVG: true,
     lore: "Brewed only during the harvest season, when the moon hangs low and orange over the valleys. The pumpkin is roasted over applewood fires, then combined with spices gathered from the last warm days of autumn.",
     brewingTip: "Perfect as an evening drink. The decaf nature and warming spices make it ideal for cozy autumn nights.",
     tasteNotes: ["Pumpkin", "Maple", "Cardamom", "Warm Spice"],
